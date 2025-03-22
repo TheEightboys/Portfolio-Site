@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #5e60ce;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #06d6a0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background-color: var(--dark-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero section */
+        #hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(248, 249, 250, 1), rgba(248, 249, 250, 0));
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* About section */
+        #about {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Skills section */
+        .skill-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        /* Projects section */
+        .project-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Contact section */
+        #contact {
+            background: linear-gradient(135deg, var(--dark-color), #2a2a5a);
+            color: white;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            border-radius: 10px;
+            border: none;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a2e;
+            color: white;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            box-shadow: 0 4px 15px rgba(58, 134, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(58, 134, 255, 0.4);
+        }
+        
+        /* Custom animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Dark mode toggle */
+        .dark-mode {
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+        
+        .dark-mode .navbar {
+            background-color: #1f1f1f;
+        }
+        
+        .dark-mode #about,
+        .dark-mode .skill-item,
+        .dark-mode .project-card {
+            background-color: #1f1f1f;
+            color: #f1f1f1;
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="75">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Barath<span class="text-primary"> Anand</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hero">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 text-center text-lg-start fade-in">
+                    <h1 class="display-4 fw-bold mb-3"> I am Barath </h1>
+                    <h2 class="mb-4">Interested in Technology, Softwares</h2>
+                    <p class="lead mb-4">Cross platform Mobile apps, Websites using React Native</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="./res.pdf" class="btn btn-primary px-4 py-2" download>
+                            <i class="fas fa-download me-2"></i> Download Resume
+                        </a>
+                        <a href="#contact" class="btn btn-outline-light px-4 py-2">
+                            <i class="fas fa-paper-plane me-2"></i> Contact Me
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 text-center mt-5 mt-lg-0 fade-in">
+                    <img src="./Pic.jpg" alt="Profile Image" class="profile-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4">About Me</h2>
+                    <p class="lead">I'm a  software engineer.Interested in Technology, Comuputers Architectures, Operating systems, Android Architecture, Linux (Ubuntu) </p>
+                    <div class="row mt-5">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-laptop-code text-white fs-4"></i>
+                                </div>
+                                <h5>Development</h5>
+                                <p class="text-center">Creating modern, responsive web applications</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-mobile-alt text-white fs-4"></i>
+                                </div>
+                                <h5>Mobile Apps</h5>
+                                <p class="text-center">Developing cross-platform mobile solutions</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-cogs text-white fs-4"></i>
+                                </div>
+                                <h5>Software Processor Architectures And operating systems </h5>
+                                <p class="text-center">Processor architectures and Linux (ubuntu)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold"> Skills</h2>
+                <p class="lead">Technologies I work with</p>
+            </div>
+            <div class="row g-4">
+                <!-- Frontend Skills -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-item p-4 text-center h-100">
+                        <div class="skill-icon mx-auto">
+                            <i class="fab fa-html5 text-white fs-4"></i>
+                        </div>
+                        <h4>Frontend</h4>
+                        <p>HTML5, CSS3, JavaScript, React, Bootstrap</p>
+                    </div>
+                </div>
+                
+                <!-- Backend Skills -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-item p-4 text-center h-100">
+                        <div class="skill-icon mx-auto">
+                            <i class="fas fa-server text-white fs-4"></i>
+                        </div>
+                        <h4>Backend</h4>
+                        <p>Node.js, Firebasae (CLOUD)   </p>
+                    </div>
+                </div>
+                
+                <!-- Database Skills -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-item p-4 text-center h-100">
+                        <div class="skill-icon mx-auto">
+                            <i class="fas fa-database text-white fs-4"></i>
+                        </div>
+                        <h4>Database</h4>
+                        <p>MongoDB,Firebase Cloud Database</p>
+                    </div>
+                </div>
+                
+                <!-- DevOps Skills -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-item p-4 text-center h-100">
+                        <div class="skill-icon mx-auto">
+                            <i class="fas fa-cloud text-white fs-4"></i>
+                        </div>
+                        <h4>Architecutes</h4>
+                        <p>Virtual Machines, Git, GitHub , Tech problem consulting</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+<!-- Social Links Section -->
+<section id="connect" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold">Connect With Me</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <p class="lead text-muted">Please Refer to all my projects on github</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <!-- Social links cards -->
+                <div class="row g-4">
+                    <!-- GitHub -->
+                    <div class="col-6">
+                        <a href="http://github.com/theeightboys" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm social-card border-0 transition-all">
+                                <div class="card-body text-center py-4">
+                                    <i class="fab fa-github fa-3x mb-3 text-dark"></i>
+                                    <h5 class="card-title mb-0">GitHub</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Instagram -->
+                    <div class="col-6">
+                        <a href="https://instagram.com/a__barath" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm social-card border-0">
+                                <div class="card-body text-center py-4">
+                                    <i class="fab fa-instagram fa-3x mb-3 text-danger"></i>
+                                    <h5 class="card-title mb-0">Instagram</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- LinkedIn -->
+                    <div class="col-6">
+                        <a href="https://www.linkedin.com/in/barath-anand-2101a9242/" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm social-card border-0">
+                                <div class="card-body text-center py-4">
+                                    <i class="fab fa-linkedin fa-3x mb-3 text-primary"></i>
+                                    <h5 class="card-title mb-0">LinkedIn</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Twitter/X -->
+                    
+                </div>
+                
+                <!-- Email Button -->
+                <div class="mt-4 text-center">
+                    <a href="mailto:barathanand2004@gmail.com" class="btn btn-lg btn-primary px-5 py-3 shadow-sm">
+                        <i class="fas fa-envelope me-2"></i>Mail Me..
+                    </a>
+                </div>
+                
+                <!-- Additional contact info -->
+                <div class="card mt-4 border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-map-marker-alt me-2"></i>Tamil Nadu, India
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- GitHub Repositories Section -->
+<section id="projects" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-4 fw-bold">My GitHub Projects</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <p class="lead text-muted">Check out my latest  work</p>
+          </div>
+        </div>
+      </div>
+      <!-- GitHub Repositories Container -->
+      <div class="row g-4" id="repositories-container">
+        <!-- Repositories will be loaded here -->
+        <div class="col-12 text-center" id="loading">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Loading repositories...</p>
+        </div>
+      </div>
+  
+      <!-- View More Button -->
+      <div class="text-center mt-5">
+        <a href="https://github.com/theeightboys" class="btn btn-lg btn-primary shadow-sm" target="_blank">
+          <i class="fab fa-github me-2"></i>View All Projects on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Add this script at the end of your body tag -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Replace 'yourusername' with your actual GitHub username
+      const username = 'yourusername';
+      const apiUrl = `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`;
+      
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(repos => {
+          const container = document.getElementById('repositories-container');
+          // Remove loading indicator
+          document.getElementById('loading').remove();
+          
+          repos.forEach(repo => {
+            if (!repo.fork) { // Skip forked repositories
+              // Create repository card
+              const card = document.createElement('div');
+              card.className = 'col-md-6 col-lg-4';
+              
+              // Calculate stars display
+              const stars = repo.stargazers_count > 0 
+                ? `<span class="ms-2"><i class="fas fa-star text-warning"></i> ${repo.stargazers_count}</span>` 
+                : '';
+              
+              // Create language indicator
+              const language = repo.language 
+                ? `<span class="badge bg-light text-dark"><i class="fas fa-code me-1"></i>${repo.language}</span>` 
+                : '';
+              
+              // Format date
+              const updatedAt = new Date(repo.updated_at).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              });
+              
+              // Create description with fallback
+              const description = repo.description 
+                ? repo.description 
+                : 'No description available';
+              
+              card.innerHTML = `
+                <div class="card h-100 shadow-sm repo-card border-0">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">
+                        <i class="far fa-folder me-2 text-primary"></i>${repo.name}
+                      </h5>
+                      ${stars}
+                    </div>
+                    <p class="card-text text-muted mb-3">${description}</p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                      ${language}
+                      <span class="badge bg-light text-dark"><i class="far fa-clock me-1"></i>Updated ${updatedAt}</span>
+                    </div>
+                    <a href="${repo.html_url}" class="btn btn-sm btn-outline-primary" target="_blank">View Repository</a>
+                  </div>
+                </div>
+              `;
+              
+              container.appendChild(card);
+            }
+          });
+          
+          // If no non-forked repos were found
+          if (container.children.length === 0) {
+            container.innerHTML = `
+              <div class="col-12 text-center">
+                <p>No repositories found. Visit my GitHub profile to see my work.</p>
+              </div>
+            `;
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching repositories:', error);
+          const container = document.getElementById('repositories-container');
+          document.getElementById('loading').remove();
+          container.innerHTML = `
+            <div class="col-12 text-center">
+              <p class="text-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                Could not load repositories. Please check my GitHub profile directly.
+              </p>
+            </div>
+          `;
+        });
+    });
+  </script>
+  
+  <style>
+    .repo-card {
+      transition: all 0.3s ease;
+    }
+    
+    .repo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+  </style>
+
+<!-- Add this CSS to your stylesheet -->
+<style>
+    .social-card {
+        transition: all 0.3s ease;
+    }
+    
+    .social-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+</style>
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="fw-bold mb-4">Get In Touch</h2>
+                    <p class="lead mb-4">Feel free to reach out for collaborations, job opportunities, or just to say hello!</p>
+                    
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-envelope me-3 fs-5"></i>
+                        <p class="mb-0">barathanand2004@gmail.com</p>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-phone me-3 fs-5"></i>
+                        <p class="mb-0">9043057100</p>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="fas fa-map-marker-alt me-3 fs-5"></i>
+                        <p class="mb-0">Tamilnadu India</p>
+                    </div>
+                    
+                    <div class="social-icons d-flex mt-4">
+                        <a href="http://github.com/theeightboys" class="me-3"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="https://www.linkedin.com/in/barath-anand-2101a9242/" class="me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="https://www.instagram.com/a__barath" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <form class="contact-form">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Subject">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center">
+        <div class="container">
+            <p class="mb-0">BarathAnand</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and other scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Activate Bootstrap scrollspy
+        const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+            target: '.navbar'
+        });
+        
+        // Add active class to navbar links when scrolling
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
